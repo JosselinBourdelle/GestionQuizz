@@ -15,6 +15,7 @@ public class QuizzAdminConsoleApp {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		listDesQuestions = new ArrayList();
+		remplissageQuestion();
 		menuPrincipal();
 		
 	}
@@ -39,10 +40,10 @@ public class QuizzAdminConsoleApp {
 			nouvelleQuestion();
 			break;
 		case 3:
-			System.out.println("Supprimer une question");
+			supprimerQuestion();
 			break;
 		case 4:
-			System.out.println("Executer le quizz");
+			executionQuizz();
 			break;
 		case 99:
 			System.out.println("Sortir");
@@ -104,17 +105,73 @@ public class QuizzAdminConsoleApp {
 		System.out.println("**** Supprimer une Question ****");
 		
 		System.out.println("Veuillez choisir le numéro de la question à supprimer : ");
-		int a = questionUser.nextInt();
 		
-		if(!listDesQuestions.isEmpty() && listDesQuestions.size()<=a) {
+		
+		if(!listDesQuestions.isEmpty()) {
+			int a = 100;
+			while (a>listDesQuestions.size()) {
+				a = questionUser.nextInt();
+				if(a>listDesQuestions.size()) {
+					System.out.println("la question n'existe pas réessayez...");
+				}
+			}
 			listDesQuestions.remove(a-1);
 		}
+		menuPrincipal();
 	}
 	
 	public static void executionQuizz() {
+		int score = 0;
+		for (int i = 0 ; i<listDesQuestions.size() ; i++) {
+			System.out.println(listDesQuestions.get(i).intitule);
+			int nbrMax = listDesQuestions.get(i).nombreMaxPropositions;
+			for (int j = 0 ; j<nbrMax  ; j++) {
+				System.out.println((j+1)+ ") " + listDesQuestions.get(i).propositions.get(j));
+			}
+			System.out.println(" quelle est la bonne réponse ?");
+			int a = 100;
+			while (a>nbrMax) {
+				a = questionUser.nextInt();
+				if(a>nbrMax) {
+					System.out.println("la réponse n'existe pas réessayez...");
+				}
+			}
+			if(listDesQuestions.get(i).propositions.get(a-1).equals(listDesQuestions.get(i).bonneReponse)) {
+				System.out.println("bonne réponse");
+				score++;
+			}
+			else {
+				System.out.println("Mauvaise réponse");
+			}
+		}
+		System.out.println("vous avez " + score + " bonne(s) réponse(s)");
+		menuPrincipal();
+	}
+	
+	public static void remplissageQuestion() {
+		Question question1 = new Question ("1Quelle est la capitale de la france ?", 4);
+		question1.addPropositions("paris");
+		question1.addPropositions("nantes");
+		question1.addPropositions("berlin");
+		question1.addPropositions("New York");
+		question1.bonneReponse = "nantes";
+		listDesQuestions.add(question1);
 		
+		Question question2 = new Question ("2Quelle est la capitale de la france ?", 4);
+		question2.addPropositions("paris");
+		question2.addPropositions("nantes");
+		question2.addPropositions("berlin");
+		question2.addPropositions("New York");
+		question2.bonneReponse = "nantes";
+		listDesQuestions.add(question2);
 		
-		
+		Question question3 = new Question ("3Quelle est la capitale de la france ?", 4);
+		question3.addPropositions("paris");
+		question3.addPropositions("nantes");
+		question3.addPropositions("berlin");
+		question3.addPropositions("New York");
+		question3.bonneReponse = "nantes";
+		listDesQuestions.add(question3);
 	}
 
 }
