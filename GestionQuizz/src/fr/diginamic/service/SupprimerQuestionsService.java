@@ -14,6 +14,10 @@ public class SupprimerQuestionsService extends MenuService {
 		
 		System.out.println("Veuillez choisir le numéro de la question à supprimer : ");
 		
+		
+		//Gestion erreur
+		
+		//1) sans Exception
 		/*
 		if(!questions.findAll().isEmpty()) {
 			int a = 100;
@@ -26,9 +30,13 @@ public class SupprimerQuestionsService extends MenuService {
 			questions.delete(a-1);
 		}*/
 		
+		//2) avec Exception
 		int a = questionUser.nextInt();
 		if(a>questions.findAll().size()) {
 			throw new SupprimerQuestionException("la question n'existe pas");
+		}
+		else {
+			questions.delete(a-1);
 		}
 		
 	}

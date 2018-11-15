@@ -8,9 +8,10 @@ public class Question {
 	public List<String> propositions;
 	public String bonneReponse;
 	public int nombreMaxPropositions;
+	public TypeQuestion type;
 	
-	
-	public Question(String question, int nombreDeReponse) {
+	public Question(TypeQuestion type, String question, int nombreDeReponse) {
+		this.type = type;
 		this.intitule = question;
 		propositions = new ArrayList<String>();
 		nombreMaxPropositions = nombreDeReponse;

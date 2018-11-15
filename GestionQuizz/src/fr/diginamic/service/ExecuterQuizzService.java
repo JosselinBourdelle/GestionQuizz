@@ -3,6 +3,7 @@ package fr.diginamic.service;
 import java.util.Scanner;
 
 import fr.diginamic.model.QuestionDao;
+import fr.diginamic.model.TypeQuestion;
 
 public class ExecuterQuizzService extends MenuService {
 
@@ -26,13 +27,19 @@ public class ExecuterQuizzService extends MenuService {
 			}
 			if(questions.findAll().get(i).propositions.get(a-1).equals(questions.findAll().get(i).bonneReponse)) {
 				System.out.println("bonne réponse");
-				score++;
+				if(questions.findAll().get(i).type.equals(TypeQuestion.BONUS)) {
+					score += 2;
+				}
+				else {
+					score++;
+				}
+				
 			}
 			else {
 				System.out.println("Mauvaise réponse");
 			}
 		}
-		System.out.println("vous avez " + score + " bonne(s) réponse(s)");
+		System.out.println("vous avez un score de : " + score);
 		
 	}
 
