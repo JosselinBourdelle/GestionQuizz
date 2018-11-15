@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 import com.sun.javafx.property.adapter.PropertyDescriptor.Listener;
 
+import fr.diginamic.exception.AjouterQuestionException;
+import fr.diginamic.exception.StockageException;
+import fr.diginamic.exception.SupprimerQuestionException;
 import fr.diginamic.model.Question;
 import fr.diginamic.model.QuestionMemDao;
 import fr.diginamic.service.AjouterQuestionsService;
@@ -48,11 +51,21 @@ public class QuizzAdminConsoleApp {
 			menuPrincipal();
 			break;
 		case 2:
-			ajout.executeUC(questionUser, questions);
+			try {
+				ajout.executeUC(questionUser, questions);
+			} catch (StockageException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			menuPrincipal();
 			break;
 		case 3:
-			supprimer.executeUC(questionUser, questions);
+			try {
+				supprimer.executeUC(questionUser, questions);
+			} catch (SupprimerQuestionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			menuPrincipal();
 			break;
 		case 4:

@@ -2,13 +2,14 @@ package fr.diginamic.service;
 
 import java.util.Scanner;
 
+import fr.diginamic.exception.AjouterQuestionException;
 import fr.diginamic.model.Question;
 import fr.diginamic.model.QuestionDao;
 
 public class AjouterQuestionsService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner questionUser, QuestionDao questions) {
+	public void executeUC(Scanner questionUser, QuestionDao questions) throws AjouterQuestionException {
 		// TODO Auto-generated method stub
 		System.out.println("** Ajouter Nouvelle Question  **");
 		
@@ -31,7 +32,11 @@ public class AjouterQuestionsService extends MenuService {
 			propositions[i] = c;
 		}
 		System.out.println("Veuillez saisir le numéro de la bonne réponse (entre 1 et " + b + ") :");
+		
 		int d = Integer.parseInt(questionUser.nextLine());
+		if (d > b) {
+			throw new AjouterQuestionException(" la nombre donner dépasse le nombre de réponse");
+		}
 	
 		Question question = new Question(a, b);
 		question.bonneReponse = propositions[d-1];
